@@ -112,6 +112,13 @@ form .formGrid .submit {
     border: none;
 }
 
+.nav {
+    display : flex;
+    flex-direction: row;
+    justify-content: center;
+    gap:20px;
+}
+
 /**
  * Coin replié des formulaires
  */
@@ -166,6 +173,45 @@ main {
     width: 80%;
     max-width: 1000px;
     margin: 0 50px 100px 50px;
+}
+
+.hidden{
+    display:none;
+}
+
+/*Affichage des tableaux (table - td)*/
+table {
+    margin: 20px auto;
+    border-collapse: collapse;
+}
+
+thead {
+    background-color: var(--headerColor);
+    color:#ffffff;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+tbody tr:nth-child(odd) {
+    background-color: var(--headerPaleColor);
+}
+
+tbody tr:nth-child(even) {
+    background-color: var(--backgroundColor);
+}
+
+th.id, td.id, th.idArticle, td.idArticle {
+    display:none;
+}
+
+td.delete {
+    font-weight: bold;
+    text-decoration: underline;
+    color:var(--titleColor);
 }
 
 /* Affichage des articles */
@@ -307,7 +353,7 @@ a.info {
  * Partie admin
  */ 
 
-.adminArticle {
+.adminArticle, .adminComment {
     margin-bottom: 20px;
     background-color: var(--commentPaleColor);
     color: white;
@@ -335,6 +381,22 @@ a.info {
 .articleLine > div {
     padding: 20px;
     border: 1px solid var(--backgroundColor);
+}
+
+.commentLine {
+    display:grid;
+    grid-template-columns: 150px 600px 200px 150px;
+}
+
+.commentLine .pseudo, .commentLine .content, .commentLine .date, .commentLine .supprimer{
+    height:100px;
+    padding:20px;
+    border:solid 1px #ddd;
+    text-align:center;
+}
+
+.commentLine .pseudo{
+    font-weight:bold;
 }
 
 /** 

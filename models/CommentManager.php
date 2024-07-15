@@ -12,7 +12,11 @@ class CommentManager extends AbstractEntityManager
      */
     public function getAllCommentsByArticleId(int $idArticle) : array
     {
-        $sql = "SELECT * FROM comment WHERE id_article = :idArticle";
+        $sql = "SELECT `pseudo`, `content`, `date_creation`, `id_article`, CONCAT('
+        <a href=\"index.php?action=deleteComment&id=',`id`,'\"',
+        'onclick=\'return confirm(\"Êtes-vous sûr de vouloir supprimer ce commentaire ?\")\'>Supprimer</a>') AS `delete`
+        FROM comment 
+        WHERE id_article = :idArticle";
         $result = $this->db->query($sql, ['idArticle' => $idArticle]);
         $comments = [];
 
@@ -45,7 +49,8 @@ class CommentManager extends AbstractEntityManager
      */
     public function addComment(Comment $comment) : bool
     {
-        $sql = "INSERT INTO comment (pseudo, content, id_article, date_creation) VALUES (:pseudo, :content, :idArticle, NOW())";
+        $sql = "INSERT INTO comment (pseudo, content, id_article, date_creation) 
+        VALUES (:pseudo, :content, :idArticle, NOW())";
         $result = $this->db->query($sql, [
             'pseudo' => $comment->getPseudo(),
             'content' => $comment->getContent(),

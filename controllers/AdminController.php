@@ -3,7 +3,8 @@
  * Contrôleur de la partie admin.
  */
  
-class AdminController {
+class AdminController 
+{
 
     /**
      * Affiche la page d'administration.
@@ -24,7 +25,101 @@ class AdminController {
             'articles' => $articles
         ]);
     }
+    /**
+     * Affiche la page de monitoring.
+     * @return void
+     */
 
+    public function showStatsArticles() : void
+    {
+        // On vérifie que l'utilisateur est connecté.
+        $this->checkIfUserIsConnected();
+        
+        // on affiche les données.
+        $articleStatsManager = new ArticleStatsManager();
+        $statsArticle = $articleStatsManager->extractStatsArticle();
+
+        // On affiche la page de monitoring.
+        $view = new View("Administration");
+        $view->render("monitoring", [
+            'statsArticle' => $statsArticle,
+        ]);
+    }
+
+    /**
+     * Affiche la page des statistiques globales
+     *
+     * @return void
+     */
+
+    public function showStats() : void
+    {
+        // On vérifie que l'utilisateur est connecté.
+        $this->checkIfUserIsConnected();
+        
+        // on affiche les données.
+        $MonitoringManager = new MonitoringManager();
+        $stats = $MonitoringManager->extractStats();
+
+        // On affiche la page de monitoring.
+        $view = new View("Administration");
+        $view->render("statsGlobales", [
+            'stats' => $stats,
+        ]);
+    }
+
+
+   /**
+     * Affiche la page de gestion des commentaires.
+     * @return void
+     */
+
+     public function showCommentsArticles() : void
+     {
+         // On vérifie que l'utilisateur est connecté.
+         $this->checkIfUserIsConnected();
+         
+         // on affiche les données.
+         $idArticle = Utils::request("id", -1);
+         $commentManager = new CommentManager();
+         $comments = $commentManager->getAllCommentsByArticleId($idArticle);
+ 
+         // On affiche la page de gestion des commentaires.
+         $view = new View("Administration");
+         $view->render("displaycomments", [
+             'comments' => $comments,
+         ]); 
+     }
+     
+   /**
+     * Action de suppression d'un commentaire.
+     * @return void
+     */
+
+     public function deleteComment() : void
+     {
+         $this->checkIfUserIsConnected();
+ 
+         //on crée l'objet commentaire
+         $id = $_GET['id'];
+         $CommentManager = new CommentManager();
+         $comment = $CommentManager->getCommentById($id);
+
+
+         // On supprime l'article.
+         $result = $CommentManager->deleteComment($comment);
+
+
+        // On vérifie que la suppression a bien fonctionné.
+        if (!$result) {
+            throw new Exception("Une erreur est survenue lors de la suppression du commentaire.");
+        }
+
+         // On redirige vers la page d'administration.
+         Utils::redirect("admin");
+     }
+ 
+ 
     /**
      * Vérifie que l'utilisateur est connecté.
      * @return void

@@ -16,6 +16,9 @@
             <span class="info"> Modifié le <?= Utils::convertDateToFrenchFormat($article->getDateUpdate()) ?></span>
         <?php } ?>
     </div>
+    <div class="nav">
+        <a class="submit" href="index.php">Retour</a>
+    </div>
 </article>
 
 <div class="comments">

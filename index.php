@@ -6,6 +6,8 @@ require_once 'config/autoload.php';
 // On récupère l'action demandée par l'utilisateur.
 // Si aucune action n'est demandée, on affiche la page d'accueil.
 $action = Utils::request('action', 'home');
+$MonitoringManager = new MonitoringManager();
+$compteur = $MonitoringManager->collectStats();
 
 // Try catch global pour gérer les erreurs
 try {
@@ -74,6 +76,26 @@ try {
             $adminController->deleteArticle();
             break;
 
+        case 'statsArticle':
+            $adminController = new AdminController();
+            $adminController->showStatsArticles();
+            break;
+
+        case 'statsGlobales':
+            $adminController = new AdminController();
+            $adminController->showStats();
+            break;
+    
+        case 'displayComments':
+            $adminController = new AdminController();
+            $adminController->showCommentsArticles();
+            break;
+
+        case 'deleteComment':
+            $adminController = new AdminController();
+            $adminController->deleteComment();
+            break;
+    
         default:
             throw new Exception("La page demandée n'existe pas.");
     }

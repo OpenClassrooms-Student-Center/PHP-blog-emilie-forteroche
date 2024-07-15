@@ -29,7 +29,9 @@
                 }
                 ?>
         </nav>
-        <h1>Emilie Forteroche</h1>
+        <a href="index.php">
+            <h1>Emilie Forteroche</h1>
+        </a>
     </header>
 
     <main>    

@@ -10,6 +10,7 @@
             <h2><?= $article->getTitle() ?></h2>
             <span class="quotation">«</span>
             <p><?= $article->getContent(400) ?></p>
+
             
             <div class="footer">
                 <span class="info"> <?= ucfirst(Utils::convertDateToFrenchFormat($article->getDateCreation())) ?></span>

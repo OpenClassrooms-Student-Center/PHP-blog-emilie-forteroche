@@ -11,6 +11,7 @@ class Comment extends AbstractEntity
     private string $pseudo;
     private string $content;
     private DateTime $dateCreation;
+    private string $delete;
     
     /**
      * Getter pour l'id de l'article.
@@ -93,4 +94,22 @@ class Comment extends AbstractEntity
         $this->dateCreation = $dateCreation;
     }
 
+    /**
+     * Getter pour le delete
+     * @return string
+     */
+    public function getDelete(): string
+    {
+        return $this->delete;
+    }
+
+    /**
+     * Setter pour le delete
+     * @param string $delete
+     * @return void
+     */
+    public function setDelete(string $delete): void 
+    {
+        $this->delete = $delete;
+    }
 }
