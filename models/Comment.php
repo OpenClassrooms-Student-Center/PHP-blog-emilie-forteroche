@@ -11,7 +11,7 @@ class Comment extends AbstractEntity
     private string $pseudo;
     private string $content;
     private DateTime $dateCreation;
-    
+    Private string $title;
     /**
      * Getter pour l'id de l'article.
      * @return int
@@ -91,6 +91,45 @@ class Comment extends AbstractEntity
             $dateCreation = DateTime::createFromFormat($format, $dateCreation);
         }
         $this->dateCreation = $dateCreation;
+    }
+
+    /**
+     * Sets the title.
+     *
+     * @param string $title The title to set.
+     * @return void
+     */
+    public function setTitle(string $title) : void
+    {
+        $this->title = $title;
+    }
+
+    /**
+     * Retrieves the title.
+     *
+     * @return string The current title.
+     */
+    public function getTitle() : string
+    {
+        return $this->title;
+    }
+
+    /**
+     * Serializes the object data for use in a datatable.
+     *
+     * @return array An associative array containing serialized data with keys like 'id', 'idArticle', 'datecreation', 'pseudo', 'content', 'title', and 'details'.
+     */
+    public function jsonSerializeDatatable():array {
+        $data = [
+            'id' => strval($this->id),
+            'idArticle' => strval($this->getIdArticle()),
+            'datecreation' => utils::convertDateToFrenchFormat($this->getDateCreation()),
+            'pseudo' => $this->getPseudo(),
+            'content' => $this->getContent(),
+            'title'=> $this->getTitle(),
+            'details' => ""
+        ];
+        return $data;
     }
 
 }

@@ -52,6 +52,13 @@ h2 {
     color: var(--headerColor);
 }
 
+ h3 {
+     color: var(--dateColor);
+     text-align: left;
+     font-size: 1.25rem;
+     margin-bottom: 20px;
+ }
+
 ul {
     list-style: none;
 }
@@ -110,6 +117,71 @@ form .formGrid .submit {
     color: white;
     background-color: var(--commentColor);
     border: none;
+}
+
+/* Style de base pour le menu */
+ul.menu {
+    display: flex;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    justify-content: center;
+}
+
+ul.menu li {
+    position: relative;
+}
+
+ul.menu a {
+    display: block;
+    padding: 10px 20px;
+    text-decoration: none;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    font-size: 18px;
+    transition: background-color 0.3s, border-bottom 0.3s; /* Transition sur la couleur et soulignement */
+}
+
+/* Souligner au survol */
+ul.menu a:hover {
+    /*background-color: #444;*/
+    border-bottom: 3px solid blue; /* Souligné au survol */
+}
+
+/* Style du sous-menu */
+ul.submenu {
+    display: none;  /* Masquer le sous-menu par défaut */
+    position: absolute;
+    left: 0;
+    top: 100%;
+    background-color: var(--headerColor);
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    border-radius: 5px;
+}
+
+ul.submenu li {
+    width: 100%;
+}
+
+ul.submenu a {
+    padding: 10px;
+    text-decoration: none;
+}
+
+ul.submenu a:hover {
+    background-color: white;
+    border-bottom: 0;
+    font-size: 20px;
+    color: var(--headerColor)
+
+}
+
+/* Afficher le sous-menu lors du survol de l'élément parent */
+.menu-item:hover > .submenu {
+    display: block;
 }
 
 /**
@@ -337,6 +409,64 @@ a.info {
     border: 1px solid var(--backgroundColor);
 }
 
+
+/**
+Gestion DataTable entete et ligne
+*/
+/* Couleur de l'en-tête */
+table.dataTable thead {
+    background-color: var(--headerColor);
+    color: white;
+}
+
+/* Alternance des couleurs des lignes */
+table.dataTable tbody tr:nth-child(odd) {
+    background-color: #fff;
+}
+
+table.dataTable tbody tr:nth-child(even) {
+    background-color: var(--headerPaleColor); /* orange très clair */
+}
+
+/* Supprimer la recherche */
+div.dataTables_filter {
+    display: none;
+}
+
+tr.selected {
+    background-color: #95cced !important; /* Bleu clair */
+}
+
+.center-text {
+    text-align: center;
+}
+
+.btn-detail {
+    padding: 5px 10px;
+    background-color: #FFA500;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+.comment-btn {
+    background-color: var(--headerColor);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    padding: 6px 15px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    font-size: 14px;
+}
+
+.comment-btn:hover {
+    background-color: darkorange;
+}
+
+.modal {
+    pointer-events: auto;
+}
 /** 
  * Footer global de la page.
  */
