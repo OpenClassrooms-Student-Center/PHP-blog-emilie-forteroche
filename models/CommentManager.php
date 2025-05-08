@@ -23,6 +23,19 @@ class CommentManager extends AbstractEntityManager
     }
 
     /**
+     * Récupère le nombre total de commentaires.
+     * @return int : le nombre total de commentaires.
+     */
+    public function  getCountAllComment(): int
+    {
+         $sql = "SELECT Count(id) FROM comment";
+         $result = $this->db->query($sql);
+         return $result->fetchColumn();
+    }
+
+
+
+       /**
      * Récupère un commentaire par son id.
      * @param int $id : l'id du commentaire.
      * @return Comment|null : un objet Comment ou null si le commentaire n'existe pas.
@@ -64,6 +77,33 @@ class CommentManager extends AbstractEntityManager
         $sql = "DELETE FROM comment WHERE id = :id";
         $result = $this->db->query($sql, ['id' => $comment->getId()]);
         return $result->rowCount() > 0;
+    }
+
+    /**
+     * Récupère une liste de commentaires associés à un article, avec une option de tri.
+     * @param int $keyid : l'id de l'article pour lequel récupérer les commentaires. Par défaut -1 pour tous.
+     * @param string $tridata : une chaîne représentant les conditions ou clauses de tri SQL supplémentaires.
+     * @return array : un tableau d'objets Comment contenant les informations des commentaires et des articles associés.
+     */
+    Public function ListCommentTable(int $keyid=-1,string $tricol = '',int $triSens = 3 ){
+        $sql = "SELECT B.title as 'title',A.id,A.id_article,A.pseudo,A.content,A.date_creation FROM comment A
+        LEFT JOIN article B on (A.id_article=B.ID)
+        WHERE (A.id_article = :idArticle)
+        order by A.id ASC";
+        // éxecution de la requête
+        $result = $this->db->query($sql, ['idArticle' => $keyid]);
+        //Serialisation tu tableau
+        $comments = [];
+        while ($comment = $result->fetch()) {
+            $dataComment = new Comment($comment);
+            $comments[] = $dataComment->jsonSerializeDatatable();
+        }
+        //$tricol='datecreation';
+        /*tri du tableau avant Setialisation*/
+        $colselected= array_column($comments,$tricol);
+        // tri du tableau sur la colonne choisit
+        array_multisort($colselected, $triSens, $comments);
+        return $comments;
     }
 
 }

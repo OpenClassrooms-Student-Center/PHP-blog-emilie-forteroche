@@ -9,8 +9,10 @@
     private int $idUser;
     private string $title = "";
     private string $content = "";
-    private ?DateTime $dateCreation = null;
-    private ?DateTime $dateUpdate = null;  
+    private int $nbvues=0;
+    private ?DateTime $date_Creation = null;
+    private ?DateTime $date_Update = null;
+    private int $qteCommentaires = 0;
 
     /**
      * Setter pour l'id de l'utilisateur. 
@@ -85,12 +87,12 @@
      * @param string $format : le format pour la convertion de la date si elle est une string.
      * Par défaut, c'est le format de date mysql qui est utilisé. 
      */
-    public function setDateCreation(string|DateTime $dateCreation, string $format = 'Y-m-d H:i:s') : void 
+    public function setDateCreation(string|DateTime $dateCreation, string $format = 'Y-m-d H:i:s') : void
     {
         if (is_string($dateCreation)) {
             $dateCreation = DateTime::createFromFormat($format, $dateCreation);
         }
-        $this->dateCreation = $dateCreation;
+        $this->date_Creation = $dateCreation;
     }
 
     /**
@@ -98,23 +100,27 @@
      * Grâce au setter, on a la garantie de récupérer un objet DateTime.
      * @return DateTime
      */
-    public function getDateCreation() : DateTime 
+    public function getDateCreation() : DateTime
     {
-        return $this->dateCreation;
+        return $this->date_Creation;
     }
 
     /**
      * Setter pour la date de mise à jour. Si la date est une string, on la convertit en DateTime.
      * @param string|DateTime $dateUpdate
      * @param string $format : le format pour la convertion de la date si elle est une string.
-     * Par défaut, c'est le format de date mysql qui est utilisé.
+     * Par défaut, c'est le format de date mysql qui est utilisé. string|DateTime
      */
-    public function setDateUpdate(string|DateTime $dateUpdate, string $format = 'Y-m-d H:i:s') : void 
+    public function setDateUpdate($dateUpdate, string $format = 'Y-m-d H:i:s') : void
     {
-        if (is_string($dateUpdate)) {
-            $dateUpdate = DateTime::createFromFormat($format, $dateUpdate);
+        $this->date_Update = null;
+        if (isset($dateUpdate)) {
+            if (is_string($dateUpdate)) {
+                $dateUpdate = DateTime::createFromFormat($format, $dateUpdate);
+            }
+            $this->date_Update = $dateUpdate;
         }
-        $this->dateUpdate = $dateUpdate;
+
     }
 
     /**
@@ -125,6 +131,55 @@
      */
     public function getDateUpdate() : ?DateTime 
     {
-        return $this->dateUpdate;
+        return $this->date_Update;
+    }
+
+     /**
+      * @param int $nb_vues
+      * @return void
+      */
+     public function setNbvues(int $nb_vues) : void
+    {
+        $this->nbvues = $nb_vues;
+    }
+
+     /**
+      * @return int
+      */
+     public function getNbvues() : int
+    {
+         return $this->nbvues;
+    }
+
+     /**
+      * @param int $qte_commentaires
+      * @return void
+      */
+     public function setQteCommentaires(int $qte_commentaires) : void{
+        $this->qteCommentaires = $qte_commentaires;
+    }
+
+     /**
+      * @return int
+      */
+     public function getQteCommentaires() : int
+    {
+        return $this->qteCommentaires;
+    }
+
+     /**
+      * Serializes the data for a datatable in JSON format.
+      * @return array The serialized data as an associative array.
+      */
+     public function jsonSerializeDatatable():array {
+         $data = [
+             'id' => strval($this->id),
+             'datecreation' => utils::convertDateToFrenchFormat($this->getDateCreation()),
+             'title' => $this->getTitle(),
+             'nbvues' => strval($this->getNbvues()),
+             'qteCommentaires' => strval($this->getQteCommentaires()),
+             'details' => ""
+         ];
+         return $data;
     }
  }

@@ -27,6 +27,16 @@ try {
             $articleController->showArticle();
             break;
 
+        Case 'ShowStatistics':
+            $articleController = new ArticleController();
+            $articleController->ShowDatatable();
+            break;
+
+        case 'showStatisticsArticle':
+            $articleController = new ArticleController();
+            $articleController->DatatableArticle();
+            break;
+
         case 'addArticle':
             $articleController = new ArticleController();
             $articleController->addArticle();
@@ -36,8 +46,18 @@ try {
             $commentController = new CommentController();
             $commentController->addComment();
             break;
-
-
+        Case 'deleteComment':
+            $commentController = new CommentController();
+            $commentController->deleteComment();
+            break;
+        case 'showComment':
+            $commentController = new CommentController();
+            $commentController->ShowTitleComment();
+            break;
+        case 'showDataComment':
+            $commentController = new CommentController();
+            $commentController->DatatableComment();
+            break;
         // Section admin & connexion. 
         case 'admin': 
             $adminController = new AdminController();
