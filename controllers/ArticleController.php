@@ -26,6 +26,7 @@ class ArticleController
 
         $articleManager = new ArticleManager();
         $article = $articleManager->getArticleById($id);
+        $articleManager->addView($id);
         
         if (!$article) {
             throw new Exception("L'article demandé n'existe pas.");

@@ -61,6 +61,14 @@ a {
     color: inherit;
 }
 
+a.h2 {
+    width: 100%;
+    margin: 20px 0;
+    font-size: 25px;
+    font-family: 'Times New Roman', Times, serif;
+    color: var(--headerColor);
+}
+
 /**
  * Styles des formulaires.
  */
@@ -335,6 +343,107 @@ a.info {
 .articleLine > div {
     padding: 20px;
     border: 1px solid var(--backgroundColor);
+}
+
+.adminMenu {
+    display: flex;
+    justify-content: left;
+    width: 100%;
+}
+
+.adminBtnMenu {
+    margin-right: 20px;
+}
+
+.inactive {
+    opacity: 0.5;
+}
+
+/**
+ * Styles du dashboard admin
+ */
+
+.separator {
+    color: #255E33;
+    margin-top: 15px;
+    font-size: 30px;
+}
+
+.dashboardBtnMenu {
+    margin-left: 20px;
+}
+
+/**
+ *
+ */
+.dashboardLine {
+    display: flex;
+    color: white;
+}
+
+.dashboardLine:nth-child(odd) {
+    background-color: var(--commentPaleColor);
+}
+
+.dashboardLine:nth-child(even) {
+    background-color: var(--commentColor);
+}
+
+.dashboardLine div {
+    display: flex;
+    align-items: center;
+}
+
+.dashboardLine .title {
+    font-weight: bold;
+    min-width: 300px;
+    width: 300px;
+}
+
+.dashboardLine .content {
+    flex-grow: 1;
+}
+
+.dashboardLine > div {
+    padding: 20px;
+    border: 1px solid var(--backgroundColor);
+}
+
+.dashboardLine > a {
+    padding: 20px;
+    border: 1px solid var(--backgroundColor);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dashboardLine .commentNumber {
+    min-width: 175px;
+    width: 175px;
+    display: flex;
+    justify-content: center;
+}
+
+.viewNumber {
+    min-width: 120px;
+    width: 120px;
+    display: flex;
+    justify-content: center;
+}
+
+.creationDate {
+    min-width: 195px;
+    width: 195px;
+    display: flex;
+    justify-content: center;
+}
+
+.titleColumn {
+    font-weight: bold;
+}
+
+.sortIcon{
+    margin-left: 10px;
 }
 
 /** 

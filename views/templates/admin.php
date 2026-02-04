@@ -5,7 +5,11 @@
      */
 ?>
 
-<h2>Edition des articles</h2>
+<div class="adminMenu">
+    <a class="adminBtnMenu <?= ($_GET['action'] ?? '') === 'dashboard' ? 'inactive' : '' ?>" href="index.php?action=admin"><h2>Edition des articles</h2></a>
+    <p class="separator">|</p>
+    <a class="dashboardBtnMenu <?= ($_GET['action'] ?? '') === 'admin' ? 'inactive' : '' ?>" href="index.php?action=dashboard&sort=title&order=asc"><h2>Tableau de bord</h2></a>
+</div>
 
 <div class="adminArticle">
     <?php foreach ($articles as $article) { ?>
